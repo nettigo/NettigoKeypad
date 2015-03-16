@@ -1,11 +1,12 @@
+#Nettigo Keypad - simple keypad with voltage divider
 Library to help read input from Nettigo Keypad - simple extension for
 Arduino with four direction keys and selection key. Uses only one analog
 input. 
 
 Sold by Nettigo:
-http://nettigo.pl/product/Nettigo-Keypad---odczyt-przez-wejscie-analogowe,keypad
+http://nettigo.pl/products/keypad-odczyt-przez-wejscie-analogowe
 
-History:
+##Version history:
 
 2011-03-08: First version
 2011-03-28: v0.2 - Support for function handlers called when key is pressed
