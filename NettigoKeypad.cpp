@@ -1,22 +1,21 @@
 //Nettigo Keypad library
 //Published on MIT licence
-// (c) 2011 Nettigo
+// (c) 2011-2015 Nettigo
 
 #include "NettigoKeypad.h"
 
 NG_Keypad::NG_Keypad(void) {
+  setBoundaries( (int [] ){ 250, 380, 490, 550, 690 });
   for (int i=0; i++; i< NG_KEYPAD_SIZE) { _functions[i] = NULL; }
   //store current time and set last pressed key to none
   lastKey = NONE;
   lastKeyTime = millis();
   debounce = true;
   debounceDelay = 50;
-
 };
 
 byte NG_Keypad::key_pressed(int rd) {
   static byte ret;
-  
   if (rd < boundaries[0])		{ ret = RIGHT;}
   else if (rd < boundaries[1]) 	{ ret = UP; }
   else if (rd < boundaries[2]) 	{ ret = DOWN; }
@@ -26,7 +25,7 @@ byte NG_Keypad::key_pressed(int rd) {
   //return result at once if no debouncing enabled
   if (!debounce)
 	return ret;
-  //no change since last time or timeout for debouncing not passed - do nothing 	
+  //no change since last time or timeout for debouncing not passed - do nothing
   if (ret == lastKey || millis() - lastKeyTime < debounceDelay) {
 	return NONE;
   } else  {
@@ -39,7 +38,7 @@ byte NG_Keypad::key_pressed(int rd) {
 
 void NG_Keypad::check_handlers(int rd) {
   byte key =  key_pressed(rd);
-  if (_functions[key] != NULL) 
+  if (_functions[key] != NULL)
   {
 	_functions[key]();
   };
@@ -71,5 +70,6 @@ void NG_Keypad::setDebounce (bool d){
 
 void NG_Keypad::setBoundaries( int *b) {
   for (byte i=0; i < 5; i++) { boundaries[i] = b[i];}
-};  
+};
 
+//NG_Keypad::boundaries[] = { 250, 380, 490, 550, 690 };

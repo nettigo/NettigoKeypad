@@ -27,7 +27,7 @@ class NG_Keypad
 	bool debounce;
 
 
-	NG_Keypad(void);  
+	NG_Keypad(void);
 
 	//which key was pressed? Takes analog input value and returns constant
 	//describing which key was pressed.
@@ -58,19 +58,19 @@ class NG_Keypad
 
 	/*
 	 *  Nettigo Keypad has keys in following order:
-	 * 
+	 *
 	 * NG_Keypad::RIGHT
 	 * NG_Keypad::UP
-	 * NG_Keypad::DOWN 
-	 * NG_Keypad::LEFT 
+	 * NG_Keypad::DOWN
+	 * NG_Keypad::LEFT
 	 * NG_Keypad::SELECT
 	 * NG_Keypad::NONE
-	 * 
+	 *
 	 * Boundary values has to be in ascending order in array, if order on Your
 	 * keypad is different You has to write some wrapper to change values. Do not
 	 * change order of values or keypad will be not working properly.
 	 * 	 */
-	int boundaries[5] = { 250, 380, 490, 550, 690 };
+	int boundaries[5];
 
 	//default debounce timeout
 	unsigned int debounceDelay;
