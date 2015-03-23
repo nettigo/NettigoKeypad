@@ -1,75 +1,40 @@
 //Nettigo Keypad library
 //Published on MIT licence
-// (c) 2011-2015 Nettigo
+// (c) 2011 Nettigo
+
 
 #include "NettigoKeypad.h"
 
-NG_Keypad::NG_Keypad(void) {
-  setBoundaries( (int [] ){ 250, 380, 490, 550, 690 });
-  for (int i=0; i++; i< NG_KEYPAD_SIZE) { _functions[i] = NULL; }
-  //store current time and set last pressed key to none
-  lastKey = NONE;
-  lastKeyTime = millis();
-  debounce = true;
-  debounceDelay = 50;
-};
+bool _isTimeout()
+{
+  static unsigned long lastTime;
+  unsigned long timeNow = millis();
+  if (timeNow - lastTime < BOUNCE_TIME)
+    return false;
 
-byte NG_Keypad::key_pressed(int rd) {
-  static byte ret;
-  if (rd < boundaries[0])		{ ret = RIGHT;}
-  else if (rd < boundaries[1]) 	{ ret = UP; }
-  else if (rd < boundaries[2]) 	{ ret = DOWN; }
-  else if (rd < boundaries[3]) 	{ ret = LEFT; }
-  else if (rd < boundaries[4]) 	{ ret = SELECT; }
-  else { ret = NONE; }
-  //return result at once if no debouncing enabled
-  if (!debounce)
-	return ret;
-  //no change since last time or timeout for debouncing not passed - do nothing
-  if (ret == lastKey || millis() - lastKeyTime < debounceDelay) {
-	return NONE;
-  } else  {
-	lastKey = ret;
-	lastKeyTime = millis();
-	return ret;
-  }
-
-};
-
-void NG_Keypad::check_handlers(int rd) {
-  byte key =  key_pressed(rd);
-  if (_functions[key] != NULL)
-  {
-	_functions[key]();
-  };
-  return;
+  lastTime = timeNow;
+  return true;
 }
 
+byte _keyCodeRead()
+{
+  word inputLevel = analogRead(ANALOG_INPUT);
+  if (inputLevel < KEY_ONE_VALUE) return KEY_ONE;
+  if (inputLevel < KEY_TWO_VALUE) return KEY_TWO;
+  if (inputLevel < KEY_THREE_VALUE) return KEY_THREE;
+  if (inputLevel < KEY_FOUR_VALUE) return KEY_FOUR;
+  if (inputLevel < KEY_FIVE_VALUE) return KEY_FIVE;
 
-int NG_Keypad::register_handler( byte key, void (*userF)(void) ) {
-  if(key >= NG_KEYPAD_SIZE)
-	return -1;
-  _functions[key] = userF;
-};
+  return KEY_NONE;
+}
 
-unsigned int NG_Keypad::getDebounceDelay( void ){
-  return debounceDelay;
-};
+byte keypadRead()
+{
+  static byte keyCode;
 
-void NG_Keypad::setDebounceDelay (unsigned int d){
-  debounceDelay = d;
-};
+  if (!_isTimeout())
+    return keyCode;
 
-bool NG_Keypad::getDebounce( void ){
-  return debounce;
-};
-
-void NG_Keypad::setDebounce (bool d){
-  debounce = d;
-};
-
-void NG_Keypad::setBoundaries( int *b) {
-  for (byte i=0; i < 5; i++) { boundaries[i] = b[i];}
-};
-
-//NG_Keypad::boundaries[] = { 250, 380, 490, 550, 690 };
+  keyCode = _keyCodeRead();
+  return keyCode;
+}
