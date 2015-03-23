@@ -21,21 +21,9 @@
 
 
 
-#ifndef NTG_LCD_SHIELD_OLD
-//Nettigo keypad values
-#define KEY_ONE_VALUE 250
-#define KEY_TWO_VALUE 590
-#define KEY_THREE_VALUE 720
-#define KEY_FOUR_VALUE 795
-#define KEY_FIVE_VALUE 900
-#define KEY_RIGHT	KEY_ONE
-#define KEY_UP		KEY_TWO
-#define KEY_DOWN	KEY_THREE
-#define KEY_LEFT	KEY_FOUR
-#define KEY_SELECT	KEY_FIVE
-
-#else
+#ifdef NTG_LCD_SHIELD_OLD
 //LCD shield values
+#define TEST	"LCD"
 #define KEY_ONE_VALUE 14
 #define KEY_TWO_VALUE 58
 #define KEY_THREE_VALUE 129
@@ -43,6 +31,20 @@
 #define KEY_FIVE_VALUE 700
 #define KEY_RIGHT	KEY_ONE
 #define KEY_UP 		KEY_TWO
+#define KEY_DOWN	KEY_THREE
+#define KEY_LEFT	KEY_FOUR
+#define KEY_SELECT	KEY_FIVE
+
+#else
+//Nettigo keypad values
+#define TEST	"KEY"
+#define KEY_ONE_VALUE 250
+#define KEY_TWO_VALUE 590
+#define KEY_THREE_VALUE 720
+#define KEY_FOUR_VALUE 795
+#define KEY_FIVE_VALUE 900
+#define KEY_RIGHT	KEY_ONE
+#define KEY_UP		KEY_TWO
 #define KEY_DOWN	KEY_THREE
 #define KEY_LEFT	KEY_FOUR
 #define KEY_SELECT	KEY_FIVE
