@@ -122,7 +122,7 @@ void loop() {
   Serial.print(F("NG_Keypad keypad("));
   for (char i = 4; i >= 0; i--) {
     byte idx = findInTable(sorted[i], readings, 6);
-    if (i != 0) {
+    if (i < 4 ) {
       Serial.print(F(","));
     }
       Serial.print(F("\n  NG_Keypad::"));
