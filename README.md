@@ -19,4 +19,4 @@ Works also with LCD shields with integrated keypad:
 * 2015-03-23: v0.6 - Support for Arduino IDE 1.0.6 (does not work in 1.6)
 * 2015-03-23: v1.0 - only one function to work, minimalistic approach
 * 2017-05-05: v1.1.0 - Support for changed keys orders and different resistor values
-* 2017-05-06: v1.1.1 - Fixed error in library.properties
+* 2017-05-06: v1.1.2 - Fixed error in library.properties
