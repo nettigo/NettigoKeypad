@@ -39,12 +39,6 @@ byte NG_Keypad::key_pressed(int rd) {
   ret = NONE;
   for (byte i=0; i <5; i++) {
     if( rd < boundaries[i] ) { 
-      Serial.print("key_pressed");
-      Serial.print(i);
-      Serial.print(",");
-      Serial.print(boundaries[i]);
-      Serial.print(",");
-      Serial.println(order[i]);
       ret = order[i];}
   }
   //return result at once if no debouncing enabled
